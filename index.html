@@ -35,13 +35,12 @@
         height: 100%;
         pointer-events: none;
         overflow: hidden;
-        background:
-          radial-gradient(ellipse at 12% 18%, transparent 0 32px, rgba(235,79,150,.13) 34px 38px, transparent 40px),
-          radial-gradient(ellipse at 70% 72%, transparent 0 44px, rgba(235,79,150,.11) 46px 50px, transparent 52px),
-          radial-gradient(ellipse at 88% 8%, transparent 0 26px, rgba(235,79,150,.10) 28px 32px, transparent 34px);
-        background-size: 180px 150px, 240px 210px, 150px 130px;
-        opacity: 0.75;
-        animation: groovy-drift 24s linear infinite;
+        background-color: transparent;
+        background-image:
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='%23eb4f96' fill-opacity='.16'%3E%3Cpath d='M32 18l5 13 13 5-13 5-5 13-5-13-13-5 13-5z'/%3E%3Cpath d='M118 76l7 18 18 7-18 7-7 18-7-18-18-7 18-7z'/%3E%3Cpath d='M68 112l4 10 10 4-10 4-4 10-4-10-10-4 10-4z'/%3E%3C/g%3E%3Cg fill='none' stroke='%23eb4f96' stroke-opacity='.12' stroke-width='2'%3E%3Ccircle cx='118' cy='18' r='5'/%3E%3Ccircle cx='32' cy='112' r='7'/%3E%3C/g%3E%3C/svg%3E");
+        background-size: 160px 160px;
+        opacity: 1;
+        animation: groovy-drift 30s linear infinite;
       }
 
 
@@ -206,7 +205,7 @@
 
       @keyframes groovy-drift {
         from { background-position: 0 0, 0 0, 0 0; }
-        to { background-position: 180px 150px, -240px 210px, 150px -130px; }
+        to { background-position: 160px 160px; }
       }
 
       @media (prefers-reduced-motion: reduce) {
