@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Portofolio | Leonardo Davinci</title>
+    <meta name="description" content="Leonardo Davinci's personal portfolio, Web Developer.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+      :root {
+        --ink: #4a233a;
+        --muted: #806779;
+        --cream: #fff8fb;
+        --orange: #eb4f96;
+        --lavender: #f7cadf;
+      }
+
+      body {
+        font-family: "Outfit", sans-serif;
+        color: var(--ink);
+        background: var(--cream);
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      .groovy-pattern {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        background:
+          radial-gradient(ellipse at 12% 18%, transparent 0 32px, rgba(235,79,150,.13) 34px 38px, transparent 40px),
+          radial-gradient(ellipse at 70% 72%, transparent 0 44px, rgba(235,79,150,.11) 46px 50px, transparent 52px),
+          radial-gradient(ellipse at 88% 8%, transparent 0 26px, rgba(235,79,150,.10) 28px 32px, transparent 34px);
+        background-size: 180px 150px, 240px 210px, 150px 130px;
+        opacity: 0.75;
+        animation: groovy-drift 24s linear infinite;
+      }
+
+
+      h1, h2, h3, .navbar-brand {
+        font-family: "Syne", sans-serif;
+      }
+
+      .navbar {
+        background: rgba(255, 248, 251, 0.92);
+        backdrop-filter: blur(12px);
+        z-index: 20;
+      }
+
+      .navbar-brand {
+        font-size: 1.15rem;
+      }
+
+      .nav-link {
+        color: var(--ink);
+        font-weight: 600;
+        font-size: 0.92rem;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        color: var(--orange) !important;
+      }
+
+      .hero {
+        min-height: 690px;
+        display: flex;
+        align-items: center;
+        padding-top: 92px;
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+      }
+
+      main,
+      footer {
+        position: relative;
+        z-index: 1;
+      }
+
+      .eyebrow {
+        color: var(--orange);
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-size: 0.78rem;
+      }
+
+      .display-title {
+        max-width: 700px;
+        font-size: clamp(3.2rem, 7vw, 6.5rem);
+        line-height: 0.98;
+        letter-spacing: -0.055em;
+      }
+
+      .hero-text {
+        max-width: 560px;
+        color: var(--muted);
+        font-size: 1.08rem;
+      }
+
+      .btn-primary {
+        --bs-btn-bg: var(--ink);
+        --bs-btn-border-color: var(--ink);
+        --bs-btn-hover-bg: var(--orange);
+        --bs-btn-hover-border-color: var(--orange);
+        --bs-btn-active-bg: var(--orange);
+        --bs-btn-active-border-color: var(--orange);
+        border-radius: 999px;
+        padding: 0.85rem 1.35rem;
+        font-weight: 700;
+      }
+
+      .portrait-wrap {
+        position: relative;
+        max-width: 430px;
+        margin-inline: auto;
+      }
+
+      .portrait-card {
+        aspect-ratio: 4 / 5;
+        border-radius: 48% 48% 28px 28px;
+        background: var(--lavender);
+        overflow: hidden;
+        border: 10px solid #fff;
+        box-shadow: 0 24px 60px rgba(23, 32, 51, 0.12);
+      }
+
+      .portrait-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        background: #fff;
+      }
+
+      .badge-float {
+        position: absolute;
+        right: -24px;
+        bottom: 70px;
+        background: #fff;
+        border-radius: 18px;
+        padding: 14px 18px;
+        box-shadow: 0 16px 40px rgba(23, 32, 51, 0.12);
+      }
+
+      .section-pad {
+        padding-block: 100px;
+      }
+
+      .hero-copy {
+        animation: fade-up 700ms ease-out both;
+      }
+
+      .portrait-wrap {
+        animation: float-in 900ms 180ms ease-out both;
+      }
+
+      .portrait-card {
+        transition: transform 300ms ease, box-shadow 300ms ease;
+      }
+
+      .portrait-card:hover {
+        transform: rotate(2deg) scale(1.02);
+        box-shadow: 0 30px 70px rgba(74, 35, 58, 0.18);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 650ms ease, transform 650ms ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .skill-pill {
+        transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+      }
+
+      .skill-pill:hover {
+        transform: translateY(-4px);
+        border-color: var(--orange);
+        background: #fff2f7;
+      }
+
+      @keyframes fade-up {
+        from { opacity: 0; transform: translateY(24px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes float-in {
+        from { opacity: 0; transform: translateX(35px) scale(0.96); }
+        to { opacity: 1; transform: translateX(0) scale(1); }
+      }
+
+      @keyframes groovy-drift {
+        from { background-position: 0 0, 0 0, 0 0; }
+        to { background-position: 180px 150px, -240px 210px, 150px -130px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .groovy-pattern,
+        .hero-copy,
+        .portrait-wrap,
+        .reveal {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+
+      .skill-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid #dddfe5;
+        border-radius: 999px;
+        background: #fff;
+        padding: 10px 16px;
+        margin: 5px;
+        font-weight: 600;
+      }
+
+      .contact-box {
+        background: var(--ink);
+        color: #fff;
+        border-radius: 28px;
+      }
+
+      .contact-box .text-secondary {
+        color: #b9c0ce !important;
+      }
+
+      .social-link {
+        width: 44px;
+        height: 44px;
+        display: inline-grid;
+        place-items: center;
+        border: 1px solid rgba(255,255,255,0.22);
+        color: #fff;
+        border-radius: 50%;
+        text-decoration: none;
+        transition: 180ms ease;
+      }
+
+      .social-link:hover {
+        background: var(--orange);
+        border-color: var(--orange);
+        color: #fff;
+        transform: translateY(-3px);
+      }
+
+      @media (max-width: 767px) {
+        .hero {
+          min-height: auto;
+          padding-block: 130px 70px;
+        }
+
+        .portrait-wrap {
+          max-width: 330px;
+          margin-top: 55px;
+        }
+
+        .badge-float {
+          right: -4px;
+        }
+
+        .section-pad {
+          padding-block: 70px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="groovy-pattern" aria-hidden="true"></div>
+    <nav class="navbar navbar-expand-lg fixed-top py-3" aria-label="Primary navigation">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="#beranda">LD<span class="text-danger">.</span></a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Show navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto gap-lg-3">
+            <li class="nav-item"><a class="nav-link active" href="#beranda">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#tentang">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#kontak">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero" id="beranda">
+        <div class="container">
+          <div class="row align-items-center g-5">
+            <div class="col-lg-7 hero-copy">
+              <p class="eyebrow mb-3">Hello, I'm Leonardo Davinci</p>
+              <h1 class="display-title fw-bold mb-4">Creative Web Developer.</h1>
+              <p class="hero-text mb-4">I design and build simple, fast, and delightful digital experiences.</p>
+              <a class="btn btn-primary" href="#tentang">About me <i class="bi bi-arrow-down ms-2"></i></a>
+            </div>
+            <div class="col-lg-5">
+              <div class="portrait-wrap">
+                <div class="portrait-card" aria-label="Leonardo Davinci profile photo">
+                  <img src="assets/images/profile.jpg" alt="Leonardo Davinci profile photo">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-pad" id="tentang">
+        <div class="container">
+          <div class="row align-items-end g-4 mb-5 reveal">
+            <div class="col-lg-7">
+              <p class="eyebrow mb-2">About me</p>
+              <h2 class="display-6 fw-bold">Turning ideas into useful digital products.</h2>
+            </div>
+            <div class="col-lg-5">
+              <p class="text-secondary mb-0">I focus on clean, responsive, and easy-to-use interfaces. I enjoy working from concept through a polished final product.</p>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap reveal">
+            <span class="skill-pill"><i class="bi bi-code-slash text-danger"></i> HTML &amp; CSS</span>
+            <span class="skill-pill"><i class="bi bi-bootstrap text-primary"></i> Bootstrap</span>
+            <span class="skill-pill"><i class="bi bi-braces text-success"></i> JavaScript</span>
+            <span class="skill-pill"><i class="bi bi-layout-text-window text-info"></i> UI Design</span>
+            <span class="skill-pill"><i class="bi bi-phone text-warning"></i> Responsive</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-pad" id="kontak">
+        <div class="container">
+          <div class="contact-box p-4 p-md-5">
+            <div class="row align-items-center g-4">
+              <div class="col-lg-8">
+                <p class="eyebrow mb-2">Let's work together</p>
+                <h2 class="display-6 fw-bold mb-3">Have an interesting idea?</h2>
+                <p class="text-secondary mb-0">I'm open to freelance projects and creative collaborations.</p>
+              </div>
+              <div class="col-lg-4 text-lg-end">
+                <a class="btn btn-primary mb-3" href="mailto:halo@leonardodavinci.dev">Send email <i class="bi bi-envelope ms-2"></i></a>
+                <div class="d-flex gap-2 justify-content-lg-end">
+                  <a class="social-link" href="#" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                  <a class="social-link" href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="py-4">
+      <div class="container d-flex flex-wrap justify-content-between text-secondary small">
+        <span>&copy; 2026 Leonardo Davinci</span>
+      
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const revealItems = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      revealItems.forEach((item) => observer.observe(item));
+    </script>
+  </body>
+</html>
