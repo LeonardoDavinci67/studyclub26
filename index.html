@@ -23,6 +23,38 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
     <style>
+      @font-face {
+        font-family: "Komika Hand";
+        src: url("assets/fonts/Komika_Hand.woff") format("woff");
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Komika Hand";
+        src: url("assets/fonts/Komika_Hand_Bold.woff") format("woff");
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Komika Hand";
+        src: url("assets/fonts/Komika_Hand_Italic.woff") format("woff");
+        font-style: italic;
+        font-weight: 400;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Komika Hand";
+        src: url("assets/fonts/Komika_Hand_Bold_Italic.woff") format("woff");
+        font-style: italic;
+        font-weight: 700;
+        font-display: swap;
+      }
+
       :root {
         --ink: #4a233a;
         --muted: #806779;
@@ -32,7 +64,7 @@
       }
 
       body {
-        font-family: "Outfit", sans-serif;
+        font-family: "Komika Hand", "Comic Sans MS", cursive;
         color: var(--ink);
         background: var(--cream);
         overflow-x: hidden;
@@ -58,7 +90,7 @@
       h2,
       h3,
       .navbar-brand {
-        font-family: "Syne", sans-serif;
+        font-family: "Komika Hand", "Comic Sans MS", cursive;
       }
 
       .navbar {
@@ -69,6 +101,17 @@
 
       .navbar-brand {
         font-size: 1.15rem;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .navbar-brand img {
+        width: 44px;
+        height: 44px;
+        object-fit: cover;
+        border: 3px solid #fff;
+        border-radius: 50%;
+        box-shadow: 0 6px 16px rgba(74, 35, 58, 0.14);
       }
 
       .nav-link {
@@ -135,15 +178,88 @@
         position: relative;
         max-width: 430px;
         margin-inline: auto;
+        isolation: isolate;
+      }
+
+      .portrait-wrap::before {
+        content: "";
+        position: absolute;
+        inset: -16px -12px -12px -16px;
+        z-index: -1;
+        border-radius: 52% 52% 36px 36px;
+        background: conic-gradient(
+          from 210deg,
+          var(--orange),
+          #ffb0cf,
+          #fff,
+          var(--lavender),
+          var(--orange)
+        );
+        box-shadow: 0 24px 55px rgba(235, 79, 150, 0.16);
+      }
+
+      .portrait-wrap::after {
+        content: "";
+        position: absolute;
+        width: 44px;
+        height: 44px;
+        right: -28px;
+        top: 42px;
+        z-index: 2;
+        border: 7px solid #fff;
+        border-radius: 50%;
+        background: var(--orange);
+        box-shadow: 0 10px 24px rgba(74, 35, 58, 0.16);
+      }
+
+      .chat-bubble {
+        position: absolute;
+        left: -58px;
+        top: 34%;
+        z-index: 3;
+        padding: 12px 18px;
+        border: 3px solid #fff;
+        border-radius: 20px 20px 20px 5px;
+        background: var(--ink);
+        color: #fff;
+        font-family: "Komika Hand", "Comic Sans MS", cursive;
+        font-size: 1.05rem;
+        font-weight: 700;
+        box-shadow: 0 12px 28px rgba(74, 35, 58, 0.18);
+        transform-origin: right bottom;
+        animation: bubble-pop 700ms 1.1s ease-out both,
+          bubble-float 3s 1.8s ease-in-out infinite;
+      }
+
+      .chat-bubble::after {
+        content: "";
+        position: absolute;
+        right: -10px;
+        bottom: 8px;
+        width: 16px;
+        height: 16px;
+        border-right: 3px solid #fff;
+        border-bottom: 3px solid #fff;
+        background: var(--ink);
+        transform: rotate(-45deg);
+        clip-path: polygon(0 0, 100% 0, 100% 100%);
       }
 
       .portrait-card {
+        position: relative;
+        z-index: 1;
         aspect-ratio: 4 / 5;
         border-radius: 48% 48% 28px 28px;
         background: var(--lavender);
         overflow: hidden;
-        border: 10px solid #fff;
-        box-shadow: 0 24px 60px rgba(23, 32, 51, 0.12);
+        border: 10px solid transparent;
+        background:
+          linear-gradient(var(--lavender), var(--lavender)) padding-box,
+          linear-gradient(135deg, #fff 8%, var(--orange) 55%, #ffb0cf)
+            border-box;
+        box-shadow:
+          inset 0 0 0 2px rgba(255, 255, 255, 0.9),
+          0 24px 60px rgba(23, 32, 51, 0.12);
       }
 
       .portrait-card img {
@@ -247,10 +363,36 @@
         }
       }
 
+      @keyframes bubble-pop {
+        0% {
+          opacity: 0;
+          transform: scale(0.5) rotate(-8deg);
+        }
+        70% {
+          opacity: 1;
+          transform: scale(1.08) rotate(2deg);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1) rotate(0);
+        }
+      }
+
+      @keyframes bubble-float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-1deg);
+        }
+        50% {
+          transform: translateY(-8px) rotate(1deg);
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .groovy-pattern,
         .hero-copy,
         .portrait-wrap,
+        .chat-bubble,
         .reveal {
           animation: none !important;
           transition: none !important;
@@ -309,6 +451,19 @@
           margin-top: 55px;
         }
 
+        .portrait-wrap::after {
+          right: -10px;
+          width: 38px;
+          height: 38px;
+        }
+
+        .chat-bubble {
+          left: -12px;
+          top: 28%;
+          font-size: 0.9rem;
+          padding: 9px 14px;
+        }
+
         .badge-float {
           right: -4px;
         }
@@ -327,8 +482,8 @@
     >
       <div class="container">
         <a class="navbar-brand fw-bold" href="#beranda"
-          >LD<span class="text-danger">.</span></a
-        >
+        ><img src="assets/images/icon.jpg" alt="Leonardo Davinci"
+      /></a>
         <button
           class="navbar-toggler border-0"
           type="button"
@@ -363,7 +518,7 @@
             <div class="col-lg-7 hero-copy">
               <p class="eyebrow mb-3">Hello, I'm Leonardo Davinci</p>
               <h1 class="display-title fw-bold mb-4">
-                Creative Web Developer.
+                Just a Lazy Dev   Mostly
               </h1>
               <p class="hero-text mb-4">
                 I design and build simple, fast, and delightful digital
@@ -375,6 +530,7 @@
             </div>
             <div class="col-lg-5">
               <div class="portrait-wrap">
+                <div class="chat-bubble" aria-label="Chat bubble">yare-yare</div>
                 <div
                   class="portrait-card"
                   aria-label="Leonardo Davinci profile photo"
@@ -417,11 +573,7 @@
               ><i class="bi bi-braces text-success"></i> JavaScript</span
             >
             <span class="skill-pill"
-              ><i class="bi bi-layout-text-window text-info"></i> UI
-              Design</span
-            >
-            <span class="skill-pill"
-              ><i class="bi bi-phone text-warning"></i> Responsive</span
+              ><i class="bi bi-phone text-info"></i> Flutter</span
             >
           </div>
         </div>
